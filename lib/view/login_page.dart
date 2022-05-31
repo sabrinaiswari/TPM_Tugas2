@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas2/tools/common_submit_button.dart';
 import 'package:hive/hive.dart';
-import 'package:tugas2/home_page.dart';
+import 'package:tugas2/view/home_page.dart';
 import 'package:tugas2/model/akun_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
@@ -52,30 +52,82 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login Page"),
-      ),
-      body: Form(
-        key: _formKey,
+      // appBar: AppBar(
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       SizedBox(width: 10),
+      //       Text('Sing in',
+      //         style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //           fontSize: 40,
+      //         ),)
+      //
+      //     ],),
+      //
+      // ),
+      body: Container(
+        padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildFieldUsername(),
-            _buildFieldPassword(),
-            _buildButtonLogin(),
-            _buildButtonRegister(),
+            const Text(
+              'Sign in',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // _CreateLogo(),
+                  _buildFieldUsername(),
+                  _buildFieldPassword(),
+                  _buildButtonLogin(),
+                  _buildButtonRegister(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+  // Widget _CreateLogo(){
+  //   return Container(
+  //       alignment: Alignment.center,
+  //       padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
+  //       child: Image.asset(
+  //         'logo.png',
+  //         width: 200,
+  //       ));
+  // }
+
   Widget _buildFieldUsername() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.all(20),
       child: TextFormField(
         controller: _usernameController,
         decoration: const InputDecoration(
           hintText: "Username",
+            prefixIcon: const Icon(Icons.person),
+            contentPadding: const EdgeInsets.all(8.0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            )
         ),
         validator: (text) {
           if (text == null || text.isEmpty) {
@@ -91,12 +143,21 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildFieldPassword() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal:  20, vertical: 10),
       child: TextFormField(
         obscureText: true,
         controller: _passwordController,
         decoration: const InputDecoration(
           hintText: "Password",
+            prefixIcon: const Icon(Icons.lock),
+            contentPadding: const EdgeInsets.all(8.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            )
         ),
         validator: (text) {
           if (text == null || text.isEmpty) {
@@ -111,21 +172,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildButtonLogin() {
-    return CommonSubmitButton(
-        labelButton: "Login",
-        submitCallback: (value) {
-          _submit();
-        });
+    return Container(
+      padding: const EdgeInsets.fromLTRB(60, 15, 60, 0),
+      child: CommonSubmitButton(
+          labelButton: "Sing in",
+          submitCallback: (value) {
+            _submit();
+          }),
+    );
   }
 
   Widget _buildButtonRegister() {
-    return CommonSubmitButton(
-        labelButton: "Register",
-        submitCallback: (value) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => RegisterPage()),
-          );
-        });
+    return Container(
+      padding: const EdgeInsets.fromLTRB(60, 0, 60, 15),
+      child: CommonSubmitButton(
+          labelButton: "Sing up",
+          submitCallback: (value) {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => RegisterPage()),
+            );
+          }),
+    );
   }
 
   void _prosesLogin(String username, String password) async {

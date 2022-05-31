@@ -45,30 +45,65 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Register Page"),
-      ),
-      body: Form(
-        key: _formKey,
+      // appBar: AppBar(
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       SizedBox(width: 10),
+      //       Text('Register')
+      //     ],),
+      // ),
+      body: Container(
+        padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildFieldUsername(),
-            _buildFieldPassword(),
-            _buildButtonRegister(),
+            const Text(
+              'Sign up',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _buildFieldUsername(),
+                  _buildFieldPassword(),
+                  _buildButtonRegister(),
+                ],
+              ),
+
+            ),
           ],
         ),
-
       ),
     );
   }
 
   Widget _buildFieldUsername(){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal:  20, vertical: 10),
       child: TextFormField(
         controller: _usernameController,
         decoration:  const InputDecoration(
           hintText: "Username",
+            prefixIcon: const Icon(Icons.person),
+            contentPadding: const EdgeInsets.all(8.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            )
         ),
         validator: (text) {
           if (text == null || text.isEmpty) {
@@ -84,12 +119,21 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildFieldPassword(){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal:  20, vertical: 10),
       child: TextFormField(
         obscureText: true,
         controller: _passwordController,
         decoration:  const InputDecoration(
           hintText: "Password",
+            prefixIcon: const Icon(Icons.lock),
+            contentPadding: const EdgeInsets.all(8.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            )
         ),
         validator: (text) {
           if (text == null || text.isEmpty) {
@@ -108,10 +152,13 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _buildButtonRegister(){
-    return CommonSubmitButton(
-        labelButton: "Register",
-        submitCallback: (value){
-          _submit();
-        });
+    return Container(
+      padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+      child: CommonSubmitButton(
+          labelButton: "Sing up",
+          submitCallback: (value){
+            _submit();
+          }),
+    );
   }
 }

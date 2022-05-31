@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:tugas2/login_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:tugas2/view/login_page.dart';
 import 'package:tugas2/model/akun_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tugas2/home_page.dart';
+import 'package:tugas2/view/home_page.dart';
 
 Future<void> main() async {
   initiateLocalDB();
@@ -17,7 +18,7 @@ Future<void> main() async {
 }
 
 void initiateLocalDB() async {
-  //await Hive.init();
+  await Hive.initFlutter();
   Hive.registerAdapter(UserAccountModelAdapter());
   await Hive.openBox<UserAccountModel>("user");
 }
